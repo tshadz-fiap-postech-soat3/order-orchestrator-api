@@ -4,10 +4,10 @@ import { CreateAppointmentRequest } from '../../application/commands/appointment
 import { CreateAppointmentCommand } from '../../application/commands/appointments/create/create-appointment-command.service';
 @ApiTags('Appointments')
 @Controller('api/appointments')
-export class AppointmentController {
+export class OrderController {
   constructor(private readonly createCommand: CreateAppointmentCommand) {}
   private readonly logger = console;
-  private readonly objectName = AppointmentController.name;
+  private readonly objectName = OrderController.name;
   @Post()
   create(@Body() createDto: CreateAppointmentRequest) {
     this.logger.log(`${this.objectName} - Criando Appointment`);
