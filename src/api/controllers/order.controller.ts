@@ -1,16 +1,16 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateAppointmentRequest } from '../../application/commands/appointments/create/create-appointment.request';
-import { CreateAppointmentCommand } from '../../application/commands/appointments/create/create-appointment-command.service';
-@ApiTags('Appointments')
-@Controller('api/appointments')
+import { CreateOrderRequest } from '../../application/commands/order/create/create-order.request';
+import { CreateOrderCommand } from '../../application/commands/order/create/create-order-command.service';
+@ApiTags('Order')
+@Controller('api/orders')
 export class OrderController {
-  constructor(private readonly createCommand: CreateAppointmentCommand) {}
+  constructor(private readonly createCommand: CreateOrderCommand) {}
   private readonly logger = console;
   private readonly objectName = OrderController.name;
   @Post()
-  create(@Body() createDto: CreateAppointmentRequest) {
-    this.logger.log(`${this.objectName} - Criando Appointment`);
+  create(@Body() createDto: CreateOrderRequest) {
+    this.logger.log(`${this.objectName} - Criando Pedindo`);
     return this.createCommand.handle(createDto);
   }
 }

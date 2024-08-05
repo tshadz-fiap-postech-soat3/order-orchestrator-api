@@ -2,15 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOrderRequest {
   @ApiProperty()
-  name: string;
+  number: number;
   @ApiProperty()
-  specialization: string;
+  price: number;
   @ApiProperty()
-  crm: string;
-  @ApiProperty()
-  email: string;
-  @ApiProperty()
-  password: string;
-  @ApiProperty()
-  address: string;
+  customerName: string;
 }

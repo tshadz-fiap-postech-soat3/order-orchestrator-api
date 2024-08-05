@@ -1,41 +1,28 @@
 import { CreateOrderRequest } from './create-order.request';
 import { CreateOrderResponse } from './create-order.response';
-import { Doctor } from '../../../entities/doctor.entity';
 import { ICommand } from '../../../../domain/base/command.interface';
 import { Injectable } from '@nestjs/common';
-import { DoctorRepository } from '../../../../infraestructure/repositories/doctor.repository';
+import { CreateOrderPublisher } from '../../../../infraestructure/message/create-order.publisher';
+import { CreateOrderMessageDto } from '../../../../domain/contracts/create-order.message';
 
 @Injectable()
 export class CreateOrderCommand implements ICommand<CreateOrderRequest, CreateOrderResponse> {
-  constructor(private readonly doctorRepository: DoctorRepository) {}
+  constructor(private readonly orderPublisher: CreateOrderPublisher) {}
   private readonly logger = console;
   private readonly objectName = CreateOrderCommand.name;
-  async handle(request: CreateOrderRequest): Promise<CreateOrderResponse> {
+  async handle(request: CreateOrderRequest): Promise<void> {
     try {
-      const doctor = new Doctor();
-      doctor.setName(request.name);
-      doctor.setSpecialization(request.specialization);
-      doctor.setCrm(request.crm);
-      doctor.setEmail(request.email);
-      doctor.setPassword(request.password);
-      doctor.setAddress(request.address);
-
-      return this.mapToResponse(await this.doctorRepository.create(doctor, null));
+      this.logger.log(`${this.objectName} - Enter to publish message `, request);
+      await this.orderPublisher.sendMessage(this.mapToMessage(request));
     } catch (e) {
       throw 'Erro ao salvar o doutor';
     }
   }
-
-  private mapToResponse(doctor: Doctor): CreateOrderResponse {
-    this.logger.log(`${this.objectName} - Objeto para mapear `, doctor);
+  private mapToMessage(request: CreateOrderRequest): CreateOrderMessageDto {
     return {
-      id: doctor.id,
-      name: doctor.name,
-      specialization: doctor.specialization,
-      crm: doctor.crm,
-      email: doctor.email,
-      address: doctor.address,
-      days: [],
+      number: request.number,
+      price: request.price,
+      customerName: request.customerName,
     };
   }
 }

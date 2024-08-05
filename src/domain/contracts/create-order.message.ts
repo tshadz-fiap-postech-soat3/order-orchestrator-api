@@ -1,5 +1,5 @@
 export interface CreateOrderMessageDto {
-  id: string;
+  number: number;
   price: number;
-  userId: string;
+  customerName: string;
 }
