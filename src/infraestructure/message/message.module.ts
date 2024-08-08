@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CreateOrderPublisher } from './create-order.publisher';
+import { CreateOrderPublisher } from './publishers/create-order.publisher';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 @Module({
   imports: [
