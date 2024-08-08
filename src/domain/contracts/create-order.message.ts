@@ -8,10 +8,10 @@ export interface CreateOrderMessageDto {
   customerId: string;
 
   @ApiProperty()
-  items: CreateOrderItemDto[];
+  items: CreateOrderItemMessageDto[];
 }
 
-export class CreateOrderItemDto {
+export class CreateOrderItemMessageDto {
   @ApiProperty({ example: 'prod-1' })
   productId: string;
 

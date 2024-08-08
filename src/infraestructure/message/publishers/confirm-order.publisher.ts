@@ -7,7 +7,7 @@ import { ConfirmOrderMessageDto } from '../../../domain/contracts/confirm-order.
 @Injectable()
 export class ConfirmOrderPublisher implements IPublisher<ConfirmOrderMessageDto> {
   constructor(@Inject('RABBITMQ_SERVICE') private readonly client: ClientProxy) {}
-  private readonly PATTERN = 'complete-order';
+  private readonly PATTERN = 'confirm-order';
   private readonly logger = console;
   private readonly objectName = ConfirmOrderPublisher.name;
   handle(message: ConfirmOrderMessageDto): void {
